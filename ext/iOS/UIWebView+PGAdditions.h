@@ -11,16 +11,16 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-	PGLayoutPositionUnknown = -1,
-	PGLayoutPositionTop = 0,
-	//PGLayoutPositionMiddle, //  always taken up by UIWebView (currently)
-	PGLayoutPositionBottom
+	CDVLayoutPositionUnknown = -1,
+	CDVLayoutPositionTop = 0,
+	//CDVLayoutPositionMiddle, //  always taken up by UIWebView (currently)
+	CDVLayoutPositionBottom
 	
-} PGLayoutPosition;
+} CDVLayoutPosition;
 
 NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context);
 
-@interface  UIWebView (PGLayoutAdditions)
+@interface  UIWebView (CDVLayoutAdditions)
 
 /*
  * Adds a sibling UIView for the UIWebView.
@@ -28,7 +28,7 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context);
  * Pushes up any sibling UIView at that position. 
  * Animation not currently supported.
  */
-- (void) pg_addSiblingView:(UIView*) siblingView withPosition:(PGLayoutPosition)position withAnimation:(BOOL)animate;
+- (void) pg_addSiblingView:(UIView*) siblingView withPosition:(CDVLayoutPosition)position withAnimation:(BOOL)animate;
 
 /*
  * Moves a sibling UIView to the new position
@@ -36,7 +36,7 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context);
  * Pushes up/down any sibling UIView at that position.
  * Animation not currently supported.
  */
-- (void) pg_moveSiblingView:(UIView*) siblingView toPosition:(PGLayoutPosition)position withAnimation:(BOOL)animate;
+- (void) pg_moveSiblingView:(UIView*) siblingView toPosition:(CDVLayoutPosition)position withAnimation:(BOOL)animate;
 
 /*
  * Removes a sibling UIView.
@@ -63,14 +63,14 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context);
  * Finds out the position of the sibling view in relation to the another view (helper)
  *
  */
-- (PGLayoutPosition) pg_layoutPositionOfView:(UIView*)siblingView fromView:(UIView*)fromView;
+- (CDVLayoutPosition) pg_layoutPositionOfView:(UIView*)siblingView fromView:(UIView*)fromView;
 
 
 /*
  * Finds out the position of the sibling view in relation to the middle UIWebView.
  *
  */
-- (PGLayoutPosition) pg_layoutPosition:(UIView*)siblingView;
+- (CDVLayoutPosition) pg_layoutPosition:(UIView*)siblingView;
 
 /*
  * Returns true if any of the sibling UIViews are intersecting with each other.

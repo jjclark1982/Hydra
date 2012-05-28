@@ -18,7 +18,7 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
 	}
 }
 
-@implementation UIWebView (PGLayoutAdditions)
+@implementation UIWebView (CDVLayoutAdditions)
 
 /* For dynamically adding properties to an existing class (in this case UIWebView, 
    we need to pass a unique identifier, which is of type void*
@@ -26,7 +26,7 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
  */
 //static char nameKey; // CGRect
 
-- (void) pg_addSiblingView:(UIView*) siblingView withPosition:(PGLayoutPosition)position withAnimation:(BOOL)animate
+- (void) pg_addSiblingView:(UIView*) siblingView withPosition:(CDVLayoutPosition)position withAnimation:(BOOL)animate
 {
 	NSAssert(siblingView.frame.size.height < self.frame.size.height, @"PhoneGap: Cannot add a sibling view that is larger than the UIWebView");
 
@@ -44,11 +44,11 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
 	
 	switch (position)
 	{
-		case PGLayoutPositionTop:
+		case CDVLayoutPositionTop:
 		{
-			// shift down y-position of all sibling views by new view's height (only PGLayoutPositionTop items), 
+			// shift down y-position of all sibling views by new view's height (only CDVLayoutPositionTop items), 
 			while ( (subview = [enumerator nextObject]) ) {
-				if ([self pg_layoutPosition:subview] == PGLayoutPositionTop) {
+				if ([self pg_layoutPosition:subview] == CDVLayoutPositionTop) {
 					CGRect subviewFrame = subview.frame;
 					subviewFrame.origin.y += siblingView.frame.size.height;
 					subview.frame = subviewFrame;
@@ -65,11 +65,11 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
 			siblingView.frame = siblingViewFrame;
 		}
 			break;
-		case PGLayoutPositionBottom:
+		case CDVLayoutPositionBottom:
 		{
-			// shift up y-position of all sibling views by new view's height (only PGLayoutPositionBottom items), 
+			// shift up y-position of all sibling views by new view's height (only CDVLayoutPositionBottom items), 
 			while ( (subview = [enumerator nextObject]) ) {
-				if ([self pg_layoutPosition:subview] == PGLayoutPositionBottom) {
+				if ([self pg_layoutPosition:subview] == CDVLayoutPositionBottom) {
 					CGRect subviewFrame = subview.frame;
 					subviewFrame.origin.y -= siblingView.frame.size.height;
 					subview.frame = subviewFrame;
@@ -96,7 +96,7 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
     }
 }
 
-- (void) pg_moveSiblingView:(UIView*) siblingView toPosition:(PGLayoutPosition)position withAnimation:(BOOL)animate
+- (void) pg_moveSiblingView:(UIView*) siblingView toPosition:(CDVLayoutPosition)position withAnimation:(BOOL)animate
 {
 	// this is essentially a remove, then add
 	[self pg_removeSiblingView:siblingView withAnimation:animate];
@@ -194,9 +194,9 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
 			continue;
 		}
 		
-		if ([self pg_layoutPositionOfView:subview fromView:centreView] == PGLayoutPositionTop) {
+		if ([self pg_layoutPositionOfView:subview fromView:centreView] == CDVLayoutPositionTop) {
 			[top addObject:subview];
-		} else if ([self pg_layoutPositionOfView:subview fromView:centreView] == PGLayoutPositionBottom) {
+		} else if ([self pg_layoutPositionOfView:subview fromView:centreView] == CDVLayoutPositionBottom) {
 			[bottom addObject:subview];
 		} else if (subview != centreView) { // it is in the "middle" check that it is not the centreView
 			[middle addObject:subview];
@@ -279,26 +279,26 @@ NSComparisonResult sortByYPos(UIView* u1, UIView* u2, void* context)
 	[self pg_sortViews:bottom withOrigin:nextOrigin];
 }
 
-- (PGLayoutPosition) pg_layoutPositionOfView:(UIView*)siblingView fromView:(UIView*)fromView
+- (CDVLayoutPosition) pg_layoutPositionOfView:(UIView*)siblingView fromView:(UIView*)fromView
 {
 	CGRect fromViewFrame = fromView.frame;
 	CGRect siblingFrame = siblingView.frame;
 	
 	if (siblingFrame.origin.y >= (fromViewFrame.origin.y + fromViewFrame.size.height)) 
 	{
-		return PGLayoutPositionBottom;
+		return CDVLayoutPositionBottom;
 	} 
 	else if (fromViewFrame.origin.y >= (siblingFrame.origin.y + siblingFrame.size.height)) 
 	{
-		return PGLayoutPositionTop;
+		return CDVLayoutPositionTop;
 	} 
 	else 
 	{
-		return PGLayoutPositionUnknown;
+		return CDVLayoutPositionUnknown;
 	}
 }
 
-- (PGLayoutPosition) pg_layoutPosition:(UIView*)siblingView
+- (CDVLayoutPosition) pg_layoutPosition:(UIView*)siblingView
 {
 	return [self pg_layoutPositionOfView:siblingView fromView:self];
 }

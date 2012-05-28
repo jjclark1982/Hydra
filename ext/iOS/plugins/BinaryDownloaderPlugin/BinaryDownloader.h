@@ -8,10 +8,10 @@
 #import <Foundation/Foundation.h>
 #import "FileDownloadURLConnection.h"
 
-#ifdef PHONEGAP_FRAMEWORK
-    #import <PhoneGap/PGPlugin.h>
+#ifdef CORDOVA_FRAMEWORK
+    #import <Cordova/CDVPlugin.h>
 #else
-    #import "PGPlugin.h"
+    #import "CDVPlugin.h"
 #endif
 
 @interface DownloadQueueItem : NSObject {
@@ -30,7 +30,7 @@
 
 @end
 
-@interface BinaryDownloader : PGPlugin < FileDownloadURLConnectionDelegate > {
+@interface BinaryDownloader : CDVPlugin < FileDownloadURLConnectionDelegate > {
 }
 
 @property (nonatomic, retain)	NSMutableArray* downloadQueue;

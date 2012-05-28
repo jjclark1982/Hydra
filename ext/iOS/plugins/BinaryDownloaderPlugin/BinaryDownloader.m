@@ -7,8 +7,8 @@
 
 #import "BinaryDownloader.h"
 #import "FileDownloadURLConnection.h"
-#ifdef PHONEGAP_FRAMEWORK
-    #import <PhoneGap/NSMutableArray+QueueAdditions.h>
+#ifdef CORDOVA_FRAMEWORK
+    #import <Cordova/NSMutableArray+QueueAdditions.h>
 #else
     #import "NSMutableArray+QueueAdditions.h"
 #endif
@@ -66,7 +66,7 @@
 
 @synthesize downloadQueue, activeDownloads;
 
--(PGPlugin*) initWithWebView:(UIWebView*)theWebView
+-(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
 {
     self = (BinaryDownloader*)[super initWithWebView:(UIWebView*)theWebView];
     if (self) {
@@ -125,13 +125,13 @@
 	if (cancelled) 
 	{
 		NSString* successString = [NSString stringWithFormat:@"Download '%@' successfully cancelled.", uri];
-		PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsString:successString];
+		CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:successString];
 		[super writeJavascript:[pluginResult toSuccessCallbackString:callbackId]];
 	}
 	else
 	{
 		NSString* errorString = [NSString stringWithFormat:@"Download '%@' not found as an active download.", uri];
-		PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_ERROR messageAsString:errorString];
+		CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
 		[super writeJavascript:[pluginResult toErrorCallbackString:callbackId]];
 	}
 }
@@ -197,7 +197,7 @@
 	NSDictionary* errorDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:urlKey, [error localizedDescription], nil] 
 									   forKeys:[NSArray arrayWithObjects:@"url", @"error", nil]];
 
-	PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_ERROR messageAsDictionary:errorDict];
+	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:errorDict];
 	[super writeJavascript:[pluginResult toErrorCallbackString:theConnection.context]];
 	
 	[self next:urlKey delegate:self];
@@ -209,7 +209,7 @@
 	NSDictionary* successDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:urlKey, theConnection.filePath, @"finished", nil] 
 														  forKeys:[NSArray arrayWithObjects:@"url", @"filePath", @"status", nil]];
 	
-	PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsDictionary:successDict];
+	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:successDict];
 	[super writeJavascript:[pluginResult toSuccessCallbackString:theConnection.context]];
 	
 	FileDownloadURLConnection* conn = [self.activeDownloads valueForKey:urlKey];
@@ -240,7 +240,7 @@
 	NSDictionary* successDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:urlKey, theConnection.filePath, @"downloading", theConnection.contentLength, [NSNumber numberWithLongLong:totalBytes], nil] 
 															forKeys:[NSArray arrayWithObjects:@"url", @"filePath", @"status", @"contentLength", @"bytesDownloaded", nil]];
 	
-	PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsDictionary:successDict];
+	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:successDict];
 	[super writeJavascript:[pluginResult toSuccessCallbackString:theConnection.context]];
 }
 

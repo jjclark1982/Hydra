@@ -12,7 +12,7 @@
 
 @synthesize operationQueue;
 
--(PGPlugin*) initWithWebView:(UIWebView*)theWebView
+-(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
 {
     self = (ZipUtil*)[super initWithWebView:(UIWebView*)theWebView];
     if (self) {
@@ -28,13 +28,13 @@
 {
 	NSDictionary* jsDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[result toDictionary], nil] 
 													   forKeys:[NSArray arrayWithObjects:@"zipResult", nil]];
-	PluginResult* pluginResult = nil;
+	CDVPluginResult* pluginResult = nil;
 	
 	if (result.ok) {
-		pluginResult = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsDictionary:jsDict];
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsDict];
 		[super writeJavascript:[pluginResult toSuccessCallbackString:result.context]];
 	} else {
-		pluginResult = [PluginResult resultWithStatus:PGCommandStatus_ERROR messageAsDictionary:jsDict];
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsDict];
 		[super writeJavascript:[pluginResult toErrorCallbackString:result.context]];
 	}
 }
@@ -44,7 +44,7 @@
 	NSDictionary* jsDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[progress toDictionary], nil] 
 													   forKeys:[NSArray arrayWithObjects:@"zipProgress", nil]];
 	
-	PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_ERROR messageAsDictionary:jsDict];
+	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsDict];
 	[super writeJavascript:[pluginResult toSuccessCallbackString:progress.context]];
 }
 
@@ -75,7 +75,7 @@
 	else 
 	{
 		NSString* errorString = [NSString stringWithFormat:@"Source path '%@' does not exist.", sourcePath];
-		PluginResult* pluginResult = [PluginResult resultWithStatus:PGCommandStatus_ERROR messageAsString:errorString];
+		CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
 		[super writeJavascript:[pluginResult toErrorCallbackString:callbackId]];
 	}
 }

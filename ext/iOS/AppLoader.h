@@ -9,10 +9,10 @@
 #import "FileDownloadURLConnection.h"
 #import "ZipOperation.h"
 
-#ifdef PHONEGAP_FRAMEWORK
-    #import <PhoneGap/PGPlugin.h>
+#ifdef CORDOVA_FRAMEWORK
+    #import <Cordova/CDVPlugin.h>
 #else
-    #import "PGPlugin.h"
+    #import "CDVPlugin.h"
 #endif
 
 @class StatusBarOverlayView;
@@ -24,7 +24,7 @@
 @end
 
 
-@interface AppLoader : PGPlugin < FileDownloadURLConnectionDelegate, ZipOperationDelegate, StatusBarOverlayDelegate > {
+@interface AppLoader : CDVPlugin < FileDownloadURLConnectionDelegate, ZipOperationDelegate, StatusBarOverlayDelegate > {
 }
 
 @property (nonatomic, copy)	NSString* downloadsFolder;
