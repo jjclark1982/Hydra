@@ -269,7 +269,7 @@
 		credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
 	}
 	
-	BinaryDownloader* bdPlugin = [[self appDelegate] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
+	BinaryDownloader* bdPlugin = [[[self appDelegate] viewController] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
 	if (bdPlugin != nil)
 	{
         // remove any previous existing download
@@ -321,7 +321,7 @@
 	NSString* callbackId = [theConnection.context objectForKey:@"callbackId"];
 	NSString* urlKey = [theConnection.url description];
 	
-	BinaryDownloader* bdPlugin = [[self appDelegate] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
+	BinaryDownloader* bdPlugin = [[[self appDelegate] viewController] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
 	if (bdPlugin != nil) {
 		[bdPlugin next:urlKey delegate:self];
 	} else {
@@ -342,7 +342,7 @@
 	NSString* appId = [theConnection.context objectForKey:@"appId"];
 	NSString* unzipFolder = [self unzipTempFilePath:appId];
 	
-	BinaryDownloader* bdPlugin = [[self appDelegate] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
+	BinaryDownloader* bdPlugin = [[[self appDelegate] viewController] getCommandInstance:BINARY_DOWNLOAD_PLUGIN];
 	if (bdPlugin != nil) {
 		[bdPlugin next:urlKey delegate:self];
 	} else {
@@ -351,7 +351,7 @@
 		[super writeJavascript:[pluginResult toErrorCallbackString:callbackId]];
 	}		
 	
-	ZipUtil* zuPlugin = [[self appDelegate] getCommandInstance:ZIP_UTIL_PLUGIN];
+	ZipUtil* zuPlugin = [[[self appDelegate] viewController] getCommandInstance:ZIP_UTIL_PLUGIN];
 	if (zuPlugin != nil)
 	{
 		ZipOperation* zipOp = [[ZipOperation alloc] initAsDeflate:NO withSource:theConnection.filePath target:unzipFolder andContext:theConnection.context];
