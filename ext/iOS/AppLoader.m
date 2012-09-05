@@ -225,7 +225,6 @@
 - (void) load:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
 	NSString* callbackId = [arguments pop];
-	VERIFY_ARGUMENTS(arguments, 1, callbackId)
 	
     NSString* appId = [arguments objectAtIndex:0];
 	
@@ -251,7 +250,6 @@
 - (void) fetch:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
 	NSString* callbackId = [arguments pop];
-	VERIFY_ARGUMENTS(arguments, 2, callbackId)
     
     NSString* appId = [arguments objectAtIndex:0];
     NSString* uri = [arguments objectAtIndex:1];
@@ -292,7 +290,6 @@
 - (void) remove:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
 	NSString* callbackId = [arguments pop];
-	VERIFY_ARGUMENTS(arguments, 1, callbackId)
     
     NSString* appId = [arguments objectAtIndex:0];
     CDVPluginResult* pluginResult = nil;

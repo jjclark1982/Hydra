@@ -60,7 +60,6 @@
 - (void) unzip:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
 	NSString* callbackId = [arguments pop];
-	VERIFY_ARGUMENTS(arguments, 2, callbackId)
 	
 	NSString* sourcePath = [arguments objectAtIndex:0];
 	NSString* targetFolder = [arguments objectAtIndex:1];
